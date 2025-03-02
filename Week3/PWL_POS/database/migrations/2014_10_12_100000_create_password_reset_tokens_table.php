@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-         // Membuat tabel password_reset_tokens
-        Schema::create('password_reset_tokens', function (Blueprint $table) { 
-            $table->string('email')->primary(); // Kolom email sebagai primary key
-            $table->string('token'); // Kolom untuk menyimpan token reset password
-            $table->timestamp('created_at')->nullable(); // Kolom untuk menyimpan waktu pembuatan 
+        Schema::create('password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('password_reset_tokens'); // Menghapus tabel jika ada
+        Schema::dropIfExists('password_reset_tokens');
     }
 };

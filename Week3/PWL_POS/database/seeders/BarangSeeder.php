@@ -4,82 +4,91 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class BarangSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
-        DB::table('m_barang')->insert([
+        $data = [
             [
-                'kategori_id'  => 1, // misalnya Elektronik
-                'nama_barang'  => 'Smartphone',
-                'harga'        => 2000000,
-                'created_at'   => now(),
-                'updated_at'   => now(),
+                'kategori_id' => 1,
+                'barang_kode' => 'B001',
+                'barang_nama' => 'Smartphone',
+                'harga_beli' => 2000000,
+                'harga_jual' => 2400000,
             ],
             [
-                'kategori_id'  => 1,
-                'nama_barang'  => 'Laptop',
-                'harga'        => 5000000,
-                'created_at'   => now(),
-                'updated_at'   => now(),
+                'kategori_id' => 1,
+                'barang_kode' => 'B002',
+                'barang_nama' => 'Laptop',
+                'harga_beli' => 500000,
+                'harga_jual' => 650000,
             ],
             [
-                'kategori_id'  => 1,
-                'nama_barang'  => 'Headset',
-                'harga'        => 150000,
-                'created_at'   => now(),
-                'updated_at'   => now(),
+                'kategori_id' => 2,
+                'barang_kode' => 'B003',
+                'barang_nama' => 'Headset',
+                'harga_beli' => 150000,
+                'harga_jual' => 200000,
             ],
             [
-                'kategori_id'  => 2, // Fashion
-                'nama_barang'  => 'Kaos',
-                'harga'        => 50000,
-                'created_at'   => now(),
-                'updated_at'   => now(),
+                'kategori_id' => 2,
+                'barang_kode' => 'B004',
+                'barang_nama' => 'Kaos',
+                'harga_beli' => 50000,
+                'harga_jual' => 75000,
+            ],
+
+            // Kategori 3: Makanan & Minuman
+            [
+                'kategori_id' => 3,
+                'barang_kode' => 'B005',
+                'barang_nama' => 'Celana',
+                'harga_beli' => 100000,
+                'harga_jual' => 120000,
             ],
             [
-                'kategori_id'  => 2,
-                'nama_barang'  => 'Celana',
-                'harga'        => 100000,
-                'created_at'   => now(),
-                'updated_at'   => now(),
+                'kategori_id' => 3,
+                'barang_kode' => 'B006',
+                'barang_nama' => 'Jaket',
+                'harga_beli' => 200000,
+                'harga_jual' => 5000,
+            ],
+
+            // Kategori 4: Perawatan Rumah
+            [
+                'kategori_id' => 4,
+                'barang_kode' => 'B007',
+                'barang_nama' => 'roti',
+                'harga_beli' => 10000,
+                'harga_jual' => 12000,
             ],
             [
-                'kategori_id'  => 2,
-                'nama_barang'  => 'Jaket',
-                'harga'        => 200000,
-                'created_at'   => now(),
-                'updated_at'   => now(),
+                'kategori_id' => 4,
+                'barang_kode' => 'B008',
+                'barang_nama' => 'air minum',
+                'harga_beli' => 2500,
+                'harga_jual' => 3000,
             ],
             [
-                'kategori_id'  => 3, // Makanan
-                'nama_barang'  => 'Roti',
-                'harga'        => 10000,
-                'created_at'   => now(),
-                'updated_at'   => now(),
+                'kategori_id' => 5,
+                'barang_kode' => 'B009',
+                'barang_nama' => 'Buku Tulis',
+                'harga_beli' => 4500,
+                'harga_jual' => 5000,
             ],
             [
-                'kategori_id'  => 4, // Minuman
-                'nama_barang'  => 'Air Mineral',
-                'harga'        => 3000,
-                'created_at'   => now(),
-                'updated_at'   => now(),
-            ],
-            [
-                'kategori_id'  => 5, // ATK
-                'nama_barang'  => 'Buku Tulis',
-                'harga'        => 5000,
-                'created_at'   => now(),
-                'updated_at'   => now(),
-            ],
-            [
-                'kategori_id'  => 5,
-                'nama_barang'  => 'Pensil',
-                'harga'        => 2000,
-                'created_at'   => now(),
-                'updated_at'   => now(),
-            ],
-        ]);
+                'kategori_id' => 5,
+                'barang_kode' => 'B010',
+                'barang_nama' => 'Pensil',
+                'harga_beli' => 1500,
+                'harga_jual' => 2000,
+            ]
+        ];
+        DB::table('m_barang')->insert($data);
     }
 }

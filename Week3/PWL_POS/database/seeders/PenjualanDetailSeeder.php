@@ -7,30 +7,39 @@ use Illuminate\Support\Facades\DB;
 
 class PenjualanDetailSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run()
     {
-        $data = [];
+        $penjualanIds = DB::table('t_penjualan')->pluck('penjualan_id')->toArray();
+        $barang = DB::table('m_barang')->select('barang_id', 'harga_jual')->get();
 
-        // Kita asumsikan penjualan_id dari 1 sampai 10
-        // Masing-masing penjualan_id punya 3 barang
-        for ($penjualanId = 1; $penjualanId <= 10; $penjualanId++) {
-            for ($i = 1; $i <= 3; $i++) {
-                // barang_id acak antara 1 s/d 10
-                $barangId = rand(1, 10);
-                $qty = rand(1, 5);
-                $subtotal = rand(10000, 50000);
-
-                $data[] = [
-                    'penjualan_id' => $penjualanId,
-                    'barang_id'    => $barangId,
-                    'qty'          => $qty,
-                    'subtotal'     => $subtotal,
-                    'created_at'   => now(),
-                    'updated_at'   => now(),
-                ];
-            }
+        if (empty($penjualanIds) || $barang->isEmpty()) {
+            echo "Seeder gagal: Pastikan tabel t_penjualan dan m_barang sudah memiliki data.\n";
+            return;
         }
 
-        DB::table('t_penjualan_detail')->insert($data);
+        $totalEntries = 0;
+        
+        foreach ($penjualanIds as $penjualanId) {
+            $barangRandom = $barang->random(3); 
+            
+            foreach ($barangRandom as $item) {
+                DB::table('t_penjualan_detail')->insert([
+                    'penjualan_id' => $penjualanId,
+                    'barang_id' => $item->barang_id,
+                    'harga' => $item->harga_jual,
+                    'jumlah' => rand(1, 5), 
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                
+                $totalEntries++;
+                if ($totalEntries >= 30) break 2;
+            }
+        }
     }
 }
