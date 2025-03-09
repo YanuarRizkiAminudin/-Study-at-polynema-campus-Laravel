@@ -20,25 +20,27 @@ class UserController extends Controller
 
         //$user = UserModel::where('level_id',2)->first();
         //$user = UserModel::firstWhere('level_id',5);
-
+//===========================================================//
         //$user = UserModel::findOr(1,['username','nama'], function(){
             //abort(404);
         //});
+        
         //$user = UserModel::findOrFail(1);
        //$user = UserModel::where('username', 'admin')->firstOrFail();
     //}
+    //===========================================================//
        //public function someMethod()
     //{
         //$min = UserModel::where('active', 1)->count();
         //dd($min);
         //return view('user', ['data' => $min]);
-    
+    //===========================================================//
     //    $user = UserModel::where('level_id',4)->count();
     //    dd($user);
     //     return view('user', ['data' => $user]);
 
             //$user = UserModel::where('level_id', 1)->count();
-      
+      //===========================================================//
             //$user = UserModel::firstOrCreate(
               //  [
                 //    'username' => 'manager_empat',
@@ -47,15 +49,46 @@ class UserController extends Controller
                     //'level_id' => 2
                 //]
             //);
-            $user = UserModel::firstOrNew(
-                [
-                    'username' => 'manager44',
-                    'nama' => 'Minggu 4 4',
-                    'password' => Hash::make('12345'),
-                    'level_id' => 2
-                ]
-            );
-            $user->save();
-            return view('user', ['data' => $user]); // Mengirimkan data pengguna ke view
-        }
+            //===========================================================//
+           // $user = UserModel::firstOrNew(
+             //   [
+               //     'username' => 'manager44',
+                 //   'nama' => 'Minggu 4 4',
+                   // 'password' => Hash::make('12345'),
+                    //'level_id' => 2
+                //]
+            //);
+            //$user->save();
+            //return view('user', ['data' => $user]); // Mengirimkan data pengguna ke view
+             //===========================================================//
+        $user = UserModel::Create([
+            'username' => 'manager24',
+            'nama' => 'manager19',
+            'password' => Hash::make('123452'),
+            'level_id' => 2,
+        ]);
+        $user->username = 'manager34';
+
+        //$user->isDirty(); //true
+        //$user->isDirty('username');//true
+        //$user->isDirty('nama');//false
+        //$user->isDirty(['nama', 'username']);//true
+
+        //$user->isClean(); //false
+        //$user->isClean('username');//false
+        //$user->isClean('nama');//true
+        //$user->isClean(['nama', 'username']);//false
+
+        //$user->isDirty();//false
+        //$user->save();
+        //$user->isClean();//true
+        //dd($user->isDirty());
+        //dd($user->isClean());
+        //===========================================================//
+        $user->wasChanged();//true
+        $user->wasChanged('username');//true
+        $user->wasChanged(['username','level_id']);//true
+        $user->wasChanged('nama');//false
+        dd($user->wasChanged(['nama','username']));//true
+    }
 }
