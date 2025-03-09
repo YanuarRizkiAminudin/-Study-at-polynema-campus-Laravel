@@ -37,10 +37,25 @@ class UserController extends Controller
     //    dd($user);
     //     return view('user', ['data' => $user]);
 
-            // Mengambil jumlah user dengan level_id 4
-            $user = UserModel::where('level_id', 1)->count();
+            //$user = UserModel::where('level_id', 1)->count();
       
-            // Mengirimkan jumlah user ke view
-            return view('user', ['data' => $user]);
-    }
+            //$user = UserModel::firstOrCreate(
+              //  [
+                //    'username' => 'manager_empat',
+                  //  'nama' => 'Manager 4',
+                    //'password' => Hash::make('12345'),
+                    //'level_id' => 2
+                //]
+            //);
+            $user = UserModel::firstOrNew(
+                [
+                    'username' => 'manager44',
+                    'nama' => 'Minggu 4 4',
+                    'password' => Hash::make('12345'),
+                    'level_id' => 2
+                ]
+            );
+            $user->save();
+            return view('user', ['data' => $user]); // Mengirimkan data pengguna ke view
+        }
 }
