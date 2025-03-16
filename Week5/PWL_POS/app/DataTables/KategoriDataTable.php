@@ -1,15 +1,15 @@
 <?php
 
 namespace App\DataTables;
-
 use App\Models\KategoriModel;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-
 class KategoriDataTable extends DataTable
 {
     /**
@@ -21,9 +21,30 @@ class KategoriDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             /* ->addColumn('action', 'kategori.action') */
-            ->setRowId('id');
-    }
+            ->addColumn('action', function ($row) {
+            $editUrl = url('/kategori/edit', $row->kategori_id);
+            $deleteUrl = url('/kategori/delete', $row->kategori_id);
+            $csrfToken = csrf_token();
 
+            return '
+            <div class="d-flex gap-2">
+                <a href="' . $editUrl . '" class="btn btn-warning btn-sm d-flex align-items-center px-3">
+                    Edit
+                </a>
+                <form action="' . $deleteUrl . '" method="POST" style="margin:0;">
+                    <input type="hidden" name="_method" value="POST">
+                    <input type="hidden" name="_token" value="' . $csrfToken . '">
+                    <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center px-3"
+                        onclick="return confirm(\'Yakin ingin menghapus?\')">
+                        Delete
+                    </button>
+                </form>
+            </div>
+            ';
+        })
+        ->rawColumns(['action'])
+        ->setRowId('id');
+}
     /**
      * Get the query source of dataTable.
      */
@@ -31,9 +52,8 @@ class KategoriDataTable extends DataTable
     {
         return $model->newQuery();
     }
-
     /**
-     * Optional method if you want to use the HTML builder.
+     * Optional method if you want to use the html builder.
      */
     public function html(): HtmlBuilder
     {
@@ -50,10 +70,9 @@ class KategoriDataTable extends DataTable
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload'),
+                Button::make('reload')
             ]);
     }
-
     /**
      * Get the dataTable columns definition.
      */
@@ -61,18 +80,22 @@ class KategoriDataTable extends DataTable
     {
         return [
             /* Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'), */
+            ->exportable(false)
+            ->printable(false)
+            ->width(60)
+            ->addClass('text-center'), */
             Column::make('kategori_id'),
             Column::make('kategori_kode'),
             Column::make('kategori_nama'),
             Column::make('created_at'),
             Column::make('updated_at'),
+            Column::computed('action')
+                 ->exportable(false)
+                 ->printable(false)
+                 ->width(100)
+                 ->addClass('text-center'),
         ];
     }
-
     /**
      * Get the filename for export.
      */
