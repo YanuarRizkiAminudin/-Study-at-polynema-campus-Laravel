@@ -147,11 +147,10 @@ public function update(Request $request, string $id)
         'level_id' => 'required|integer' // level_id harus diisi dan berupa angka
     ]);
 
-    $user = UserModel::find($id);
-    $user->update([
+    UserModel::find($id)->update([
         'username' => $request->username,
         'nama' => $request->nama,
-        'password' => $request->password ? bcrypt($request->password) : $user->password,
+        'password' => $request->password ? bcrypt($request->password) : UserModel::find($id)->password,
         'level_id' => $request->level_id
     ]);
 
