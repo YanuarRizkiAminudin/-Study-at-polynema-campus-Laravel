@@ -9,4 +9,8 @@ use Illuminate\Routing\Controller as BaseController;
 class EventController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+    public function index()
+    {
+    return view('admin.event.index');
+    }
 }

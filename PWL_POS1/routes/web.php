@@ -11,10 +11,11 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\PhotoController;
 
 // Route::get('/user/profile', [UserProfileController::class, 'show'])->name('profile');
 
-// // Jobsheet 02 - PWL 2023/2024
+// Jobsheet 02 - PWL 2023/2024
 // Route::get('/user/{name?}', function ($name='john'){
 //     return 'Nama saya ' .$name;
 // });
@@ -24,7 +25,7 @@ use App\Http\Controllers\AboutController;
 //     [UserProfileController::class, 'show']
 // )->name('profile');
 
-// //Generating URLs...
+//Generating URLs...
 // $url = route('profile');
 
 // // Generating Redirects....
@@ -64,8 +65,14 @@ Route::prefix('admin')->group(function(){
     Route::get('/post', [PostController::class, 'index']);
     Route::get('/event', [EventController::class, 'index']);
 });
-//Controller
+// Controller
 Route::get('/hello', [WelcomeController::class,'hello']);
+// Route::get('/', [PageController::class, 'index']);
+// Route::get('/about', [PageController::class, 'about']);
+// Route::get('/articles/{id}', [PageController::class,'articles']);
+//Modifikasi
 Route::get('/', HomeController::class);
 Route::get('/about', AboutController::class);
 Route::get('/articles/{id}', ArticleController::class);
+//Resoutce Controller
+Route::resource('photo', PhotoController::class);

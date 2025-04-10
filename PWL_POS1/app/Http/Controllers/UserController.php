@@ -9,4 +9,8 @@ use Illuminate\Routing\Controller as BaseController;
 class UserController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+public function index() {
+    return 'ini adalah halaman user, dam kamu sudah login.';
+}
 }
