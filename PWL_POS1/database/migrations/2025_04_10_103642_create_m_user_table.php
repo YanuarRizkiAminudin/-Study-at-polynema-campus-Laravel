@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_users', function (Blueprint $table) {
+        Schema::create('m_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('level_id')->index();//indexing untuk ForeignKey
             $table->string('username', 20)->unique();//unique untuk memastikan tidak ada username yang sama
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_users');
+        Schema::dropIfExists('m_user');
     }
 };
