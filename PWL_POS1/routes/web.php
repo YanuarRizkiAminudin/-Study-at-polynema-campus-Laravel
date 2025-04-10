@@ -76,3 +76,8 @@ Route::get('/about', AboutController::class);
 Route::get('/articles/{id}', ArticleController::class);
 //Resoutce Controller
 Route::resource('photo', PhotoController::class);
+
+// Route::get('/greeting', function() {
+//     return view('blog.hello', ['name' => 'Yanuar']);
+// });
+Route::get('/greeting', [WelcomeController::class,'greeting']);
