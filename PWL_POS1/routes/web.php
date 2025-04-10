@@ -7,6 +7,10 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\EventController;
 use App\Http\Middleware\FirstMiddleware; //pertemuan 2
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AboutController;
 
 // Route::get('/user/profile', [UserProfileController::class, 'show'])->name('profile');
 
@@ -62,3 +66,6 @@ Route::prefix('admin')->group(function(){
 });
 //Controller
 Route::get('/hello', [WelcomeController::class,'hello']);
+Route::get('/', HomeController::class);
+Route::get('/about', AboutController::class);
+Route::get('/articles/{id}', ArticleController::class);
