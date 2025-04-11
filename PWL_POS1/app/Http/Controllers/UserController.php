@@ -7,6 +7,8 @@ use App\Models\UserModel;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
+use function Laravel\Prompts\password;
+
 class UserController extends Controller
 {
     public function index()
@@ -32,16 +34,24 @@ class UserController extends Controller
         //     ];
         //     UserModel::insert($data);
         // }
+        // $data = [
+        //     'nama' => 'Pelanggan Pertama',
+        // ];
+
+        // UserModel::where('username', 'customer-1')->update($data);
+
+        // // Ambil semua data dari tabel user
+
+        //PWL4
         $data = [
-            'nama' => 'Pelanggan Pertama',
+            'level_id' => 2,
+            'username' => 'manager_dua',
+            'nama' => 'Manager 2',
+            'password' => Hash::make('12345')
         ];
-
-        UserModel::where('username', 'customer-1')->update($data);
-
-        // Ambil semua data dari tabel user
+        UserModel::create($data);
 
         $user = UserModel::all();
-
         return view('user', ['data' => $user]);
     }
 }
