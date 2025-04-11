@@ -41,4 +41,8 @@ Route::get('/', function(){
 
 Route::get('/level', [LevelController::class, 'index']);
 Route::get('/kategori', [KategoriController::class, 'index']);
-ROute::get('/user', [UserController::class, 'index']);
+Route::get('/user', [UserController::class, 'index']);
+//Praktikum 2.6 – Create, Read, Update, Delete (CRUD)
+Route::get('/user/ubah/{id}', [UserController::class, 'ubah']);
+Route::put('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
+Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
