@@ -61,7 +61,8 @@ class UserController extends Controller
         // });
 
         //Praktikum 2.2 – Not Found Exceptions
-        $user = UserModel::findOrFail(1);
+        // $user = UserModel::findOrFail(1);
+        $user =  UserModel::where('username','admin')->firstOrFail();
         return view('user', ['data' => $user]);
     }
 }
