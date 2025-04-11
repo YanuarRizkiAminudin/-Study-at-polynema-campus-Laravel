@@ -43,15 +43,18 @@ class UserController extends Controller
         // // Ambil semua data dari tabel user
 
         //PWL4
-        $data = [
-            'level_id' => 2,
-            'username' => 'manager_dua',
-            'nama' => 'Manager 2',
-            'password' => Hash::make('12345')
-        ];
-        UserModel::create($data);
+        // $data = [
+        //     'level_id' => 2,
+        //     'username' => 'manager_dua',
+        //     'nama' => 'Manager 2',
+        //     'password' => Hash::make('12345')
+        // ];
+        // UserModel::create($data);
 
-        $user = UserModel::all();
+        // $user = UserModel::all();
+        // $user = UserModel::find(1);
+        //$user = UserModel::where('level_id', 3)->first();
+        $user = UserModel::firstWhere('level_id', 3);
         return view('user', ['data' => $user]);
     }
 }
