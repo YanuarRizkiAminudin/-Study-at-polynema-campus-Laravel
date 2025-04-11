@@ -62,7 +62,13 @@ class UserController extends Controller
 
         //Praktikum 2.2 – Not Found Exceptions
         // $user = UserModel::findOrFail(1);
-        $user =  UserModel::where('username','admin')->firstOrFail();
-        return view('user', ['data' => $user]);
+
+        //Praktikum 2.3 – Retreiving Aggregrates
+        //$user =  UserModel::where('username','admin')->firstOrFail();
+        // $user = UserModel::where('level_id', 2)->count();
+        // dd($user);
+        //return view('user', ['data' => $user]);//Main
+        $jumlahPengguna = UserModel::where('level_id',2)->count();
+        return view('user', ['jumlah' => $jumlahPengguna]);
     }
 }
