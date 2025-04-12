@@ -50,6 +50,7 @@ use App\Http\Controllers\WelcomeController;
 
 //Js 5
 Route::get('/', [WelcomeController::class, 'index']);
+
 Route::group(['prefix' => 'user'],function() {
 Route::get('/', [UserController::class, 'index']);               // menampilkan halaman awal user
 Route::post('/list', [UserController::class, 'list']);            // menampilkan data user dalam bentuk json untuk datatables
@@ -59,4 +60,16 @@ Route::get('/{id}', [UserController::class, 'show']);             // menampilkan
 Route::get('/{id}/edit', [UserController::class, 'edit']);        // menampilkan halaman form edit user
 Route::put('/{id}', [UserController::class, 'update']);            // menyimpan perubahan data user
 Route::delete('/{id}', [UserController::class, 'destroy']);        // menghapus data user
+});
+
+
+Route::group(['prefix' => 'supplier'], function() {
+Route::get('/', [SupplierController::class, 'index']);          //menampilkan halaman awal supplier
+Route::post('/list', [SupplierController::class, 'list']);      //menampilkan data supplier dalam bentuk json untuk datatables
+Route::get('/create', [SupplierController::class, 'create']);   //menampilkan halaman form tambah supplier
+Route::post('/', [SupplierController::class, 'store']);         //menyimpan data supplier baru
+Route::get('/{id}', [SupplierController::class, 'show']);       //menampilkan detail supplier
+Route::get('/{id}/edit', [SupplierController::class, 'edit']);  //menamilkan halaman form edit supplier
+Route::put('/{id}', [SupplierController::class, 'update']);     //menyimpan perubahan data supplier
+Route::delete('/{id}', [SupplierController::class, 'destroy']); //menghapus data supplier
 });
