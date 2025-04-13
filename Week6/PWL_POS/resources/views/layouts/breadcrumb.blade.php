@@ -1,4 +1,4 @@
-{{-- <i class="fas fa-search"></i>
+<!-- {{-- <i class="fas fa-search"></i>
 </a>
 <div class="navbar-search-block">
   <form class="form-inline">
@@ -12,7 +12,7 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-    </div> --}}
+    </div> --}} -->
 
     <section class="content-header">
         <div class="container-fluid">
