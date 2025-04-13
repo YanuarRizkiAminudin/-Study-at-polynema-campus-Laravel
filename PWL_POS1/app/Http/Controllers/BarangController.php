@@ -166,10 +166,10 @@ public function destroy(string $id)
     try {
         BarangModel::destroy($id);    // hapus data kategori
 
-        return redirect('/barang')->with('success', 'Data kategori berhasil dihapus');
+        return redirect('/barang')->with('success', 'Data barang berhasil dihapus');
     } catch (\Illuminate\Database\QueryException $e) {
         //Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-        return redirect('/barang')->with('error', 'Data gagal dihapus karena masuh terdapat tabel lain yang terkait dengan data ini');
+        return redirect('/barang')->with('error', 'Data barang gagal dihapus karena masuh terdapat tabel lain yang terkait dengan data ini');
     }
 }
 }

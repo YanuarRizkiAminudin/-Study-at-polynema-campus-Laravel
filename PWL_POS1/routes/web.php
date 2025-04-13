@@ -11,6 +11,14 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\WelcomeController;
 
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\StokController;
+use App\Models\Level;
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -107,3 +115,4 @@ Route::get('/{id}/edit', [BarangController::class, 'edit']);  //menamilkan halam
 Route::put('/{id}', [BarangController::class, 'update']);     //menyimpan perubahan data barang
 Route::delete('/{id}', [BarangController::class, 'destroy']); //menghapus data barang
 });
+
