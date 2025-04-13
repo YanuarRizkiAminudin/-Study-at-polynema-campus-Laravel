@@ -24,12 +24,6 @@
   <div class="wrapper">
     <!-- Navbar -->
      @include('layouts.header')
-    {{-- <!-- /.navbar -->
-    <div class="content-wrapper">
-        @include('layouts.breadcrumb')
-        @yield('content')
-      </div>
-       --}}
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -49,15 +43,7 @@
       <!-- Main content -->
       <section class="content">
         @yield('content')
-        {{-- <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Title</h3>
-          </div>
-          <div class="card-body">
-            <!-- Isi konten halaman -->
-            <!-- ... bagian konten lainnya ... -->
-          </div>
-        </div> --}}
+  
       </section>
       <!-- /.content -->
     </div>
@@ -82,9 +68,21 @@
   <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
   <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colvis.min.js') }}"></script>
   <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
-  <script>
-      $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-  </script>
-  @stack('js')
-  </body>
-  </html>
+ 
+ 
+<!-- jquery validation -->
+<script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }} "></script>
+<script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }} "></script>
+
+<!-- SweetAlert2 -->
+<script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }} "></script>
+
+<!-- AdminLTE App -->
+<script src="{{ asset('adminlte/dist/js/adminlte.min.js')}}"></script>
+<script>
+  //untuk mengirimkan token laravel CSRF pada setiap request ajax
+  $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+</script>
+@stack('js') <!-- Digunakan untuk memanggil custom js dari perintah push('js') pada masing-masing view -->
+</body>
+</html>
