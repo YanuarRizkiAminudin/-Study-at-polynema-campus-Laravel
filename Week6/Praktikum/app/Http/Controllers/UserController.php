@@ -71,6 +71,9 @@ class UserController extends Controller
 
         return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
+
+    // Praktikum 3 no 18
+    //menampilkan halaman  edit user
     public function index()
     {
         $breadcrumb = (object) [

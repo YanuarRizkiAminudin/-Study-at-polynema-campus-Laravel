@@ -6,6 +6,8 @@ use App\Models\LevelModel;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Monolog\Level;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -71,6 +73,8 @@ class UserController extends Controller
 
         return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
+
+
     public function index()
     {
         $breadcrumb = (object) [
@@ -180,16 +184,16 @@ class UserController extends Controller
             'level_id' => 'required|integer' // level_id harus diisi dan berupa angka
         ]);
 
-        $user = UserModel::find($id);
-        $user->update([
+        UserModel::find($id)->update([
             'username' => $request->username,
-            'nama' => $request->nama,
-            'password' => $request->password ? bcrypt($request->password) : $user->password,
+            'nama'     => $request->nama,
+            'password' => $request->password ? bcrypt($request->password) : UserModel::find($id)->password,
             'level_id' => $request->level_id
         ]);
 
         return redirect('/user')->with('success', 'Data user berhasil diubah');
     }
+    // pratikum 3 no -22
     // Menghapus data user
     public function destroy(string $id)
     {
@@ -207,13 +211,14 @@ class UserController extends Controller
             return redirect('/user')->with('error', 'Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
-    // jobsheet 6
+    // jobsheet 6 prak-1 no-7
     public function create_ajax()
     {
         $level = levelModel::select('level_id', 'level_nama')->get();
         return view('user.create_ajax')
             ->with('level', $level);
     }
+    //praktikum-1 no-9
     public function store_ajax(Request $request)
     {
         // cek apakah request berupa ajax
@@ -240,7 +245,7 @@ class UserController extends Controller
             UserModel::create($request->all());
             return response()->json([
                 'status'  => true,
-                'message' => 'Data user berhasil disimpan'
+                'message' => 'Data user berhasil disimpan',
             ]);
         }
 
