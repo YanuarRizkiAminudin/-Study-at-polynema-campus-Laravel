@@ -172,4 +172,111 @@ public function destroy(string $id)
         return redirect('/kategori')->with('error', 'Data gagal dihapus karena masuh terdapat tabel lain yang terkait dengan data ini');
     }
 }
+// Tugas Jobsheet 6
+public function create_ajax() {
+
+    return view('kategori.create_ajax');
+
+}
+
+public function store_ajax(Request $request) {
+    // cek apakah request berupa ajax
+    if($request->ajax() || $request->wantsJson()) {
+        $rules = [
+            'kategori_kode'  => 'required|string|max:10|unique:m_kategori,kategori_kode',    
+            'kategori_nama'  => 'required|string|max:100'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails()) {
+            return response()->json([
+                'status' => false, // response status, false: error/gagal, true: berhasil
+                'message' => 'Validasi gagal',
+                'msgField' => $validator->errors(), // pesan error validasi
+            ]);
+        }
+
+        KategoriModel::create($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data kategori berhasil disimpan'
+        ]);
+    }
+
+    redirect('/');
+} 
+
+//menampilkan halaman form edit kategori ajax
+public function edit_ajax(string $id) {
+    $kategori = KategoriModel::find($id);
+
+    return view('kategori.edit_ajax', ['kategori' => $kategori]);
+}
+
+public function update_ajax(Request $request, $id)
+{
+    // cek apakah request dari ajax
+    if ($request->ajax() || $request->wantsJson()) {
+        $rules = [
+            'kategori_kode'  => 'required|string|max:10|unique:m_kategori,kategori_kode,' . $id . ',kategori_id',    
+            'kategori_nama'  => 'required|string|max:100'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false, // respon json, true: berhasil, false: gagal
+                'message' => 'Validasi gagal.',
+                'msgField' => $validator->errors() // menunjukkan field mana yang error
+            ]);
+        }
+
+        $kategori = KategoriModel::find($id);
+        if ($kategori) {
+            $kategori->update($request->all());
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil diupdate'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
+    return redirect('/');
+}
+
+
+public function confirm_ajax(string $id) {
+    $kategori = KategoriModel::find($id);
+
+    return view('kategori.confirm_ajax', ['kategori' => $kategori]);
+ }
+
+
+public function delete_ajax(Request $request, $id)
+{
+    // cek apakah request dari ajax
+    if ($request->ajax() || $request->wantsJson()) {
+        $kategori = KategoriModel::find($id);
+        if ($kategori) {
+            $kategori->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil dihapus'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
+    return redirect('/');
+}
 }
