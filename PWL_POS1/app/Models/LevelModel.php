@@ -16,6 +16,7 @@ class LevelModel extends Model
 
 
     protected $fillable = [
+        'level_id',
         'level_nama', 
         'level_kode'
     ];
