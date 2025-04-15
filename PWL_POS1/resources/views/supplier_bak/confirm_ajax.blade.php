@@ -1,9 +1,10 @@
-@empty($level)
+@empty($supplier)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">                  <span aria-hidden="true">&times;</span>
+                <h5 class="modal-title" =id="exampleModalLabel">Kesalahan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -11,18 +12,18 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang Anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/level') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/supplier') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/level/' . $level->level_id . '/delete_ajax') }}" method="POST" id="form-delete">
+    <form action="{{ url('/supplier/' . $supplier->supplier_id . '/delete_ajax') }}" method="POST" id="form-delete">
         @csrf
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Level</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data supplier</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -34,14 +35,13 @@
                     </div>
                     <table class="table table-sm table-bordered table-striped">
                         <tr>
-                            <th class="text-right col-3">Kode Level :</th>
-                            <td class="col-9">{{ $level->level_kode }}</td>
+                            <th class="text-right col-3">Kode supplier :</th>
+                            <td class="col-9">{{ $supplier->supplier_kode }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama Level :</th>
-                            <td class="col-9">{{ $level->level_nama }}</td>
+                            <th class="text-right col-3">Nama supplier :</th>
+                            <td class="col-9">{{ $supplier->supplier_nama }}</td>
                         </tr>
-                        
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -68,8 +68,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                //dataUser.ajax.reload(); // Asumsi ada variabel dataUser untuk datatable
-                                
+                                datasupplier.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

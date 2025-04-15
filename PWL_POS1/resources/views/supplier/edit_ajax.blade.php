@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="alert alert-danger">
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
-                    Data yang Anda cari tidak ditemukan
+                    Data yang anda cari tidak ditemukan
                 </div>
                 <a href="{{ url('/supplier') }}" class="btn btn-warning">Kembali</a>
             </div>
@@ -23,24 +23,31 @@
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data supplier</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Supplier</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    
                     <div class="form-group">
-                        <label>Kode supplier</label>
-                        <input value="{{ $supplier->supplier_kode }}" type="text" name="supplier_kode" id="supplier_kode"
-                            class="form-control" required>
-                        <small id="error-supplierkode" class="error-text form-text text-danger"></small>
+                        <label>Kode Supplier</label>
+                        <input value="{{ $supplier->supplier_kode }}" type="text" name="supplier_kode" id="supplier_kode" class="form-control" required>
+                        <small id="error-supplier-kode" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Nama supplier</label>
-                        <input value="{{ $supplier->supplier_nama }}" type="text" name="supplier_nama" id="supplier_nama" class="form-control"
-                            required>
-                        <small id="error-suppliernama" class="error-text form-text text-danger"></small>
+                        <label>Nama Supplier</label>
+                        <input value="{{ $supplier->supplier_nama }}" type="text" name="supplier_nama" id="supplier_nama" class="form-control" required>
+                        <small id="error-supplier-nama" class="error-text form-text text-danger"></small>
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat Supplier</label>
+                        <input value="{{ $supplier->supplier_alamat }}" type="text" name="supplier_alamat" id="supplier_alamat" class="form-control" required>
+                        <small id="error-supplier-alamat" class="error-text form-text text-danger"></small>
+                    </div>
+                    <div class="form-group">
+                        <label>Nomer Telepon Supplier</label>
+                        <input value="{{ $supplier->supplier_telepon }}" type="text" name="supplier_telepon" id="supplier_telepon" class="form-control" required>
+                        <small id="error-supplier-telepon" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -54,8 +61,9 @@
         $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
-                    supplier_kode: { required: true, minlength: 3, maxlength: 20 },
-                    supplier_nama: { required: true, minlength: 3, maxlength: 100 }
+                    supplier_kode: { required: true, minlength: 2},
+                    supplier_nama: { required: true, maxlength: 100 },
+                    supplier_alamat: { required: true }
                 },
                 submitHandler: function(form) {
                     $.ajax({
@@ -70,7 +78,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataUser.ajax.reload();
+                                dataSupplier.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {
@@ -100,4 +108,4 @@
             });
         });
     </script>
-@endempty   
+@endempty

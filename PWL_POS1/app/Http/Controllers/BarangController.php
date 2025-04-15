@@ -208,8 +208,7 @@ public function destroy(string $id)
 public function create_ajax()
 {
     $kategori = KategoriModel::select('kategori_id', 'kategori_nama')->get();
-    return view('barang.create_ajax')
-        ->with('kategori', $kategori);
+    return view('barang.create_ajax', ['kategori'=>$kategori]);
 }
 
 public function store_ajax(Request $request)

@@ -1,23 +1,29 @@
-<form action="{{ url('/level/ajax') }}" method="POST" id="form-tambah">
+<form action="{{ url('/supplier/ajax') }}" method="POST" id="form-tambah">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Level</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data supplier</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
+                
                 <div class="form-group">
-                    <label>Kode</label>
-                    <input value="" type="text" name="level_kode" id="level_kode" class="form-control" required>
-                    <small id="error-kode" class="error-text form-text text-danger"></small>
+                    <label>Kode supplier</label>
+                    <input value="" type="text" name="supplier_kode" id="supplier_kode" class="form-control" required>
+                    <small id="error-supplierKode" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Nama</label>
-                    <input value="" type="text" name="level_nama" id="level_nama" class="form-control" required>
-                    <small id="error-nama" class="error-text form-text text-danger"></small>
+                    <label>Nama supplier</label>
+                    <input value="" type="text" name="supplier_nama" id="supplier_nama" class="form-control" required>
+                    <small id="error-supplierNama" class="error-text form-text text-danger"></small>
                 </div>
+                <div class="form-group">
+                    <label>Alamat supplier</label>
+                    <input value="" type="text" name="supplier_alamat" id="supplier_alamat" class="form-control" required>
+                    <small id="error-supplierAlamat" class="error-text form-text text-danger"></small>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
@@ -26,20 +32,27 @@
         </div>
     </div>
 </form>
+
 <script>
 $(document).ready(function() {
     $("#form-tambah").validate({
         rules: {
-            level_kode: {
+            supplier_kode: {
                 required: true,
                 minlength: 3,
                 maxlength: 20
             },
-            level_nama: {
+            supplier_nama: {
                 required: true,
                 minlength: 3,
                 maxlength: 100
             },
+            supplier_alamat: {
+                required: true,
+                minlength: 3,
+                maxlength: 100
+            },
+            
         },
         submitHandler: function(form) {
             $.ajax({
@@ -54,7 +67,7 @@ $(document).ready(function() {
                             title: 'Berhasil',
                             text: response.message
                         });
-                        dataLevel.ajax.reload();
+                        dataSupplier.ajax.reload();
                     } else {
                         $('.error-text').text('');
                         $.each(response.msgField, function(prefix, val) {

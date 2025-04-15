@@ -1,7 +1,6 @@
-@empty($kategori)
 <form action="{{ url('/kategori/ajax') }}" method="POST" id="form-tambah">
     @csrf
-    <div id="modal-master" class="modal-dialog modal-lg" role="document">
+    <div id="myModal" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah Data Kategori</h5>
@@ -10,7 +9,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                
                 <div class="form-group">
                     <label>Kode Kategori</label>
                     <input value="" type="text" name="kategori_kode" id="kategori_kode" class="form-control" required>
@@ -34,8 +32,7 @@
 <script>
     $(document).ready(function() {
         $("#form-tambah").validate({
-            rules: {
-                
+            rules: {           
                 kategori_kode: { required: true, minlength: 3, maxlength: 20 },
                 kategori_nama: { required: true, minlength: 3, maxlength: 100 },
                 

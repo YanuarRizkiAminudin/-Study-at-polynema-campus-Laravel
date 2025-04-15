@@ -110,7 +110,7 @@ public function store(Request $request)
 // menampilkan detail
 public function show(string $id)
 {
-$kategori = KategoriModel::find($id);
+$kategori = KategoriModel::with('kategori')->find($id);
 
 $breadcrumb = (object)[
     'title' => 'Detail Kategori',
@@ -179,14 +179,6 @@ public function destroy(string $id)
     }
 }
 
-
-
-
-
-
-
-
-
 public function create_ajax()
 {
     return view('kategori.create_ajax');
@@ -197,7 +189,6 @@ public function store_ajax(Request $request)
     // cek apakah request berupa ajax
     if ($request->ajax() || $request->wantsJson()) {
         $rules = [
-            'kategori_id' => 'required|integer',
             'kategori_kode' => 'required|string|min:3|unique:m_kategori,kategori_kode',
             'kategori_nama'     => 'required|string|max:100'
             
