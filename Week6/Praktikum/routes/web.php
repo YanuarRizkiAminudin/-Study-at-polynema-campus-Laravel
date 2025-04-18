@@ -18,7 +18,6 @@ use App\Http\Controllers\StokController;
 use App\Models\Level;
 
 
-//patokan lokasi file & URL di Laravel.
 
 /*
 |--------------------------------------------------------------------------
