@@ -62,6 +62,7 @@ use App\Models\Level;
 //Js 5
 Route::pattern('id', '[0-9]+'); // artinya ketika ada parameter {id}, maka harus berupa angka
 
+
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin']);
 Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
@@ -91,8 +92,9 @@ Route::middleware(['authorize:ADM'])->group(function () {
     Route::put('/barang/{id}/update_ajax', [BarangController::class, 'update_ajax']); // ajax update
     Route::get('/barang/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // ajax form confirm delete
     Route::delete('/barang/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // ajax delete
+    Route::get('/barang/import',[BarangController::class, 'import']); //ajax form upload excel
+    Route::post('/barang/import_ajax',[BarangController::class, 'import_ajax']);// ajax import excel
 });
-
 
 
 // Artinya semua route di dalam group ini harus punya role MNG (Manager)
