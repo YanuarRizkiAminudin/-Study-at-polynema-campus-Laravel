@@ -97,7 +97,6 @@ Route::middleware(['authorize:MNG'])->group(function () {
     Route::delete('/level/{id}', [LevelController::class, 'destroy']);
     Route::get('/level/{id}/show_ajax', [LevelController::class, 'show_ajax']);         // detail ajax
 });
-
 // Artinya semua route di dalam group ini harus punya role ADM (Administrator) atau MNG (Manager)
 Route::middleware(['authorize:ADM,MNG'])->group(function () {
     Route::get('/level', [LevelController::class, 'index']);
@@ -109,6 +108,7 @@ Route::middleware(['authorize:ADM,MNG'])->group(function () {
     Route::delete('/level/{id}', [LevelController::class, 'destroy']);
     Route::get('/level/{id}/show_ajax', [LevelController::class, 'show_ajax']);         // detail ajax
 });
+
 
 // Route Barang
 // Artinya semua route di dalam group ini harus punya role ADM (Administrator)
@@ -148,11 +148,11 @@ Route::middleware(['authorize:ADM,MNG'])->group(function () {
     Route::put('/barang/{id}/update_ajax', [BarangController::class, 'update_ajax']); // ajax update
     Route::get('/barang/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // ajax form confirm delete
     Route::delete('/barang/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // ajax delete
-    Route::get('/barang/{id}/show_ajax', [BarangController::class, 'show_ajax']);         // detail ajax
-    
+    Route::get('/barang/{id}/show_ajax', [BarangController::class, 'show_ajax']);         // detail ajax 
 });
 //Route::get('/', [WelcomeController::class, 'index']);
 
+// Route User
 // Semua route user ini hanya bisa diakses oleh role ADM (Administrator)
 Route::middleware(['authorize:ADM'])->prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index']);                       // menampilkan halaman awal user
@@ -170,8 +170,7 @@ Route::middleware(['authorize:ADM'])->prefix('user')->group(function () {
     Route::get('/export_excel', [UserController::class, 'export_excel']); // export excel
     Route::get('/export_pdf', [UserController::class, 'export_pdf']); // export pdf
 });
-
-// Semua route user ini hanya bisa diakses oleh role MNG (Manage)
+// Semua route user ini hanya bisa diakses oleh role MNG (Manager)
 Route::middleware(['authorize:MNG'])->prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index']);                       // menampilkan halaman awal user
     Route::post('/list', [UserController::class, 'list']);                  // menampilkan data user dalam bentuk json untuk datatables
@@ -205,7 +204,7 @@ Route::middleware(['authorize:ADM,MNG'])->prefix('user')->group(function () {
 //Route::delete('/{id}', [UserController::class, 'destroy']);        // menghapus data user
 //Route::get('/{id}/show_ajax', [UserController::class, 'show_ajax']);  //menamilkan halaman form confirm user ajax
 
-
+// Route Supplier
 // Semua route supplier ini hanya bisa diakses oleh role ADM (Administrator)
 Route::middleware(['authorize:ADM'])->prefix('supplier')->group(function () {
     Route::get('/', [SupplierController::class, 'index']);                           // menampilkan halaman awal supplier
@@ -236,7 +235,7 @@ Route::middleware(['authorize:MNG'])->prefix('supplier')->group(function () {
     Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);  // hapus ajax
     Route::get('/{id}/show_ajax', [SupplierController::class, 'show_ajax']);         // detail ajax
 });
-// Semua route supplier ini hanya bisa diakses oleh role ADM (Administrator)
+// Semua route supplier ini hanya bisa diakses oleh role ADM,MNG (Administrator)
 Route::middleware(['authorize:ADM,MNG'])->prefix('supplier')->group(function () {
     Route::get('/', [SupplierController::class, 'index']);                           // menampilkan halaman awal supplier
     Route::post('/list', [SupplierController::class, 'list']);                       // menampilkan data supplier untuk datatables
@@ -250,6 +249,8 @@ Route::middleware(['authorize:ADM,MNG'])->prefix('supplier')->group(function () 
     Route::get('/{id}/show_ajax', [SupplierController::class, 'show_ajax']);         // detail ajax
 });
 
+
+// Route Kategori 
 // Semua route kategori ini hanya bisa diakses oleh role ADM (Administrator)
 Route::middleware(['authorize:ADM'])->prefix('kategori')->group(function () {
     Route::get('/', [KategoriController::class, 'index']);                           // halaman awal kategori
@@ -266,8 +267,8 @@ Route::middleware(['authorize:ADM'])->prefix('kategori')->group(function () {
     Route::get('/export_excel', [KategoriController::class, 'export_excel']); // export excel
     Route::get('/export_pdf', [KategoriController::class, 'export_pdf']); // export pdf
 });
-// Semua route kategori ini hanya bisa diakses oleh role ADM (Administrator)
-Route::middleware(['authorize:ADM'])->prefix('kategori')->group(function () {
+// Semua route kategori ini hanya bisa diakses oleh role MNG (Manajer)
+Route::middleware(['authorize:MNG'])->prefix('kategori')->group(function () {
     Route::get('/', [KategoriController::class, 'index']);                           // halaman awal kategori
     Route::post('/list', [KategoriController::class, 'list']);                       // data untuk datatables
     Route::get('/create', [KategoriController::class, 'create']);                   // form tambah kategori
@@ -278,8 +279,8 @@ Route::middleware(['authorize:ADM'])->prefix('kategori')->group(function () {
     Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']);  // hapus ajax
     Route::get('/{id}/show_ajax', [KategoriController::class, 'show_ajax']);         // detail ajax
 });
-// Semua route kategori ini hanya bisa diakses oleh role ADM (Administrator)
-Route::middleware(['authorize:ADM'])->prefix('kategori')->group(function () {
+// Semua route kategori ini hanya bisa diakses oleh role ADM,MNG (Administrator,Manajer)
+Route::middleware(['authorize:ADM,MNG'])->prefix('kategori')->group(function () {
     Route::get('/', [KategoriController::class, 'index']);                           // halaman awal kategori
     Route::post('/list', [KategoriController::class, 'list']);                       // data untuk datatables
     Route::get('/create', [KategoriController::class, 'create']);                   // form tambah kategori
