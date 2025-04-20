@@ -124,9 +124,9 @@ public function update_ajax(Request $request, $id)
     //Ambil data level dalam bentuk json untuk datatables
 public function list(Request $request)
 {
-    $levels = LevelModel::select('level_id', 'level_kode', 'level_nama');
+    $level = LevelModel::select('level_id', 'level_kode', 'level_nama');
 
-    return DataTables::of($levels)
+    return DataTables::of($level)
         // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
         ->addIndexColumn()
         ->addColumn('aksi', function ($level) { // menambahkan kolom aksi
@@ -135,10 +135,10 @@ public function list(Request $request)
             // $btn .= '<form class="d-inline-block" method="POST" action="' . url('/level/' . $level->level_id) . '">'
             //     . csrf_field() . method_field('DELETE') .
             //     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
-            $btn = '<button onclick="modalAction(\''.url('/level/' . $level->level_id .'/show_ajax').'\')" class="btn btn-info btn-sm">Detail</button> ';
-$btn .= '<button onclick="modalAction(\''.url('/level/' . $level->level_id .'/edit_ajax').'\')" class="btn btn-warning btn-sm">Edit</button> ';
-$btn .= '<a href="' . url('/level/' . $level->level_id . '/edit') . '" class="btn btn-warning btn-sm">Edit biasa</a> ';
-$btn .= '<button onclick="modalAction(\''.url('/level/' . $level->level_id .'/delete_ajax').'\')" class="btn btn-danger btn-sm">Hapus</button> ';
+$btn = '<button onclick="modalAction(\''.url('/level/' . $level->level_id .'/show_ajax'). '\')" class="btn btn-info btn-sm">Detail</button> ';
+$btn .= '<button onclick="modalAction(\''.url('/level/' . $level->level_id .'/edit_ajax'). '\')" class="btn btn-warning btn-sm">Edit</button> ';
+// $btn .= '<a href="' . url('/level/' . $level->level_id . '/edit') . '" class="btn btn-warning btn-sm">Edit biasa</a> ';
+$btn .= '<button onclick="modalAction(\''.url('/level/' . $level->level_id .'/delete_ajax'). '\')" class="btn btn-danger btn-sm">Hapus</button> ';
             return $btn;
         })
         ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
@@ -181,7 +181,7 @@ public function store(Request $request)
 // menampilkan detail
 public function show(string $id)
 {
-$level = LevelModel::find($id);
+$level = LevelModel::with('kategori')->find($id);
 
 $breadcrumb = (object)[
     'title' => 'Detail Level',
@@ -276,5 +276,10 @@ public function delete_ajax(Request $request, $id)
         }
     }
     return redirect('/');
+}
+public function show_ajax(string $id)
+{
+    $level = LevelModel::find($id);
+    return view('level.show_ajax', ['level' => $level]);
 }
 }
