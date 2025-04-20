@@ -72,16 +72,43 @@ Route::middleware(['auth'])->group(function(){
     //route Level
 
 
-    //artisan semua route di dalam group ini harus punya  role ADM (Administrator)
-    Route::middleware(['authorize:ADM'])->group(function(){
-        Route::get('/level',[LevelController::class,'index']);
-        Route::post('/level/list',[LevelController::class,'list']);//untuk list json datatables
-        Route::get('/level/create',[LevelController::class, 'create']);
-        Route::post('/level',[LevelController::class, 'store']);
-        Route::get('/level/{id}/edit', [LevelController::class, 'edit']);// untuk tampilan form edit
-        Route::put('/level/{id}',[LevelController::class, 'update']); // untuk proses update data
-        Route::delete('/level/{id}',[LevelController::class, 'destroy']);
+// Artinya semua route di dalam group ini harus punya role ADM (Administrator)
+Route::middleware(['authorize:ADM'])->group(function () {
+    Route::get('/level', [LevelController::class, 'index']);
+    Route::post('/level/list', [LevelController::class, 'list']); // untuk list json datatables
+    Route::get('/level/create', [LevelController::class, 'create']);
+    Route::post('/level', [LevelController::class, 'store']);
+    Route::get('/level/{id}/edit', [LevelController::class, 'edit']); // untuk tampilan form edit
+    Route::put('/level/{id}', [LevelController::class, 'update']); // untuk proses update data
+    Route::delete('/level/{id}', [LevelController::class, 'destroy']);
+    Route::get('/level/import', [LevelController::class, 'import']); // ajax form upload excel
+    Route::post('/level/import_ajax', [LevelController::class, 'import_ajax']); // ajax import excel
+    Route::get('/level/export_excel', [LevelController::class, 'export_excel']); // export excel
+    Route::get('/level/export_pdf', [LevelController::class, 'export_pdf']); // export pdf
 });
+// Artinya semua route di dalam group ini harus punya role MNG (Manager)
+Route::middleware(['authorize:MNG'])->group(function () {
+    Route::get('/level', [LevelController::class, 'index']);
+    Route::post('/level/list', [LevelController::class, 'list']); // untuk list json datatables
+    Route::get('/level/create', [LevelController::class, 'create']);
+    Route::post('/level', [LevelController::class, 'store']);
+    Route::get('/level/{id}/edit', [LevelController::class, 'edit']); // untuk tampilan form edit
+    Route::put('/level/{id}', [LevelController::class, 'update']); // untuk proses update data
+    Route::delete('/level/{id}', [LevelController::class, 'destroy']);
+});
+
+// Artinya semua route di dalam group ini harus punya role ADM (Administrator) atau MNG (Manager)
+Route::middleware(['authorize:ADM,MNG'])->group(function () {
+    Route::get('/level', [LevelController::class, 'index']);
+    Route::post('/level/list', [LevelController::class, 'list']); // untuk list json datatables
+    Route::get('/level/create', [LevelController::class, 'create']);
+    Route::post('/level', [LevelController::class, 'store']);
+    Route::get('/level/{id}/edit', [LevelController::class, 'edit']); // untuk tampilan form edit
+    Route::put('/level/{id}', [LevelController::class, 'update']); // untuk proses update data
+    Route::delete('/level/{id}', [LevelController::class, 'destroy']);
+});
+
+
 // Artinya semua route di dalam group ini harus punya role ADM (Administrator)
 Route::middleware(['authorize:ADM'])->group(function () {
     Route::get('/barang', [BarangController::class, 'index']);
@@ -97,8 +124,6 @@ Route::middleware(['authorize:ADM'])->group(function () {
     Route::get('/barang/export_excel',[BarangController::class, 'export_excel']); //export excel
     Route::get('/barang/export_pdf',[BarangController::class,'export_pdf']); // export pdf
 });
-
-
 // Artinya semua route di dalam group ini harus punya role MNG (Manager)
 Route::middleware(['authorize:MNG'])->group(function () {
     Route::get('/barang', [BarangController::class, 'index']);
@@ -110,8 +135,6 @@ Route::middleware(['authorize:MNG'])->group(function () {
     Route::get('/barang/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // ajax form confirm delete
     Route::delete('/barang/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // ajax delete
 });
-
-
 Route::middleware(['authorize:ADM,MNG'])->group(function () {
     Route::get('/barang', [BarangController::class, 'index']);
     Route::post('/barang/list', [BarangController::class, 'list']);
@@ -122,8 +145,6 @@ Route::middleware(['authorize:ADM,MNG'])->group(function () {
     Route::get('/barang/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // ajax form confirm delete
     Route::delete('/barang/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // ajax delete
 });
-
-
 //Route::get('/', [WelcomeController::class, 'index']);
 
 Route::group(['prefix' => 'user'],function() {
