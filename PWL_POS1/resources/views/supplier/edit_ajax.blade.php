@@ -30,24 +30,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Kode Supplier</label>
+                        <label>Supplier Kode</label>
                         <input value="{{ $supplier->supplier_kode }}" type="text" name="supplier_kode" id="supplier_kode" class="form-control" required>
                         <small id="error-supplier-kode" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Nama Supplier</label>
+                        <label>Supplier Nama</label>
                         <input value="{{ $supplier->supplier_nama }}" type="text" name="supplier_nama" id="supplier_nama" class="form-control" required>
                         <small id="error-supplier-nama" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Alamat Supplier</label>
+                        <label>Supplier Alamat</label>
                         <input value="{{ $supplier->supplier_alamat }}" type="text" name="supplier_alamat" id="supplier_alamat" class="form-control" required>
                         <small id="error-supplier-alamat" class="error-text form-text text-danger"></small>
-                    </div>
-                    <div class="form-group">
-                        <label>Nomer Telepon Supplier</label>
-                        <input value="{{ $supplier->supplier_telepon }}" type="text" name="supplier_telepon" id="supplier_telepon" class="form-control" required>
-                        <small id="error-supplier-telepon" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -61,7 +56,7 @@
         $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
-                    supplier_kode: { required: true, minlength: 2},
+                    supplier_kode: { required: true, minlength: 7, maxlength: 10 },
                     supplier_nama: { required: true, maxlength: 100 },
                     supplier_alamat: { required: true }
                 },
@@ -78,7 +73,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataSupplier.ajax.reload();
+                                dataUser.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

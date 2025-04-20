@@ -35,20 +35,16 @@
                     </div>
                     <table class="table table-sm table-bordered table-striped">
                         <tr>
-                            <th class="text-right col-3">Kode Supplier:</th>
+                            <th class="text-right col-3">Supplier Kode:</th>
                             <td class="col-9">{{ $supplier->supplier_kode }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama Supplier:</th>
+                            <th class="text-right col-3">Supplier Nama:</th>
                             <td class="col-9">{{ $supplier->supplier_nama }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Alamat Supplier:</th>
+                            <th class="text-right col-3">Supplier Alamat:</th>
                             <td class="col-9">{{ $supplier->supplier_alamat }}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-right col-3">Nomer Telepon Supplier:</th>
-                            <td class="col-9">{{ $supplier->supplier_telepon }}</td>
                         </tr>
                     </table>
                 </div>
@@ -76,7 +72,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataSupplier.ajax.reload();
+                                dataUser.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {
@@ -89,6 +85,15 @@
                                 });
                             }
                         },
+                        // custom catch error
+                        // error: function(error) {
+                        //     Swal.fire({
+                        //         icon: 'error',
+                        //         title: 'Terjadi Kesalahan',
+                        //         text: 'Gagal menghapus data: ' + error.statusText
+                        //     });
+                        // }
+                        //
                     });
                     return false;
                 },

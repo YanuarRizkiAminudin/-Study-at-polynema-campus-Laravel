@@ -24,9 +24,6 @@
                     <th>Alamat Supplier</th>
                     <td>{{ $supplier->supplier_alamat }}</td>
                 </tr>
-                <tr>
-                    <th>Nomer Telepon Supplier</th>
-                    <td>{{ $supplier->supplier_telepon }}</td>
             </table>
     </div>
 </div>
