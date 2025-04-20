@@ -1,5 +1,4 @@
 <form action="{{ url('/barang/import_ajax') }}" method="POST" id="form-import" enctype="multipart/form-data"
-    class="modal-dialog-centered">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg flex-fill" role="document">
         <div class="modal-content">
@@ -8,13 +7,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body">
+            < class="modal-body">
                 <div class="form-group">
                     <label>Download Template</label>
                     <a href="{{ asset('template_barang.xlsx') }}" class="btn btn-info btn-sm" download><i
                             class="fa fa-file-excel"></i> Download</a>
                     <small id="error-kategori_id" class="error-text form-text text-danger"></small>
                 </div>
+            </div>
                 <div class="form-group">
                     <label>Pilih File</label>
                     <input type="file" name="file_barang" id="file_barang" class="form-control" required>
@@ -34,9 +34,8 @@
             rules: {
                 file_barang: {
                     required: true,
-                    extension: "xlsx"
+                    extension: "xlsx"},
                 },
-            },
             submitHandler: function(form) {
                 var formData = new FormData(form);
                 $.ajax({
@@ -53,7 +52,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataUser.ajax.reload();
+                            tableBarang.ajax.reload();
                         } else {
                             $('.error-text').text('');
                             $.each(response.msgField, function(prefix, val) {

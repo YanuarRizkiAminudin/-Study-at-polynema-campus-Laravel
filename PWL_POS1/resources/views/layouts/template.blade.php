@@ -39,6 +39,20 @@
         <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">PWL - Starter Code</span>
       </a>
+
+
+    <div class="sidebar">
+      <d class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{ asset('adminlte/dist/img/'.Auth::id().'.jpg') }}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" onclick="modalAction('{{ url('/profil/import') }}')" class="d-block">{{ Session::get('nama_user') }}</a>
+        </div>
+      </div>
+    
+
+
       @include('layouts.sidebar')
       <!--/.sidebar -->
     </aside>
@@ -61,6 +75,13 @@
         </div> --}}
       </section>
       <!-- /.content -->
+    </div>
+    <div id="myModal" class="modal fade" tabindex="-1" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+      </div>
+    </div>
     </div>
     <!-- /.content-wrapper -->
 
@@ -91,6 +112,14 @@
 <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
   <script>
       $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+      function modalAction(url = ''){
+        $('#myModal').load(url, function(){
+          $('#myModal').modal('show');
+          if(url.includes('import')){
+            initialImportValidation();
+          }
+        });
+      }
   </script>
   @stack('js')
   </body>

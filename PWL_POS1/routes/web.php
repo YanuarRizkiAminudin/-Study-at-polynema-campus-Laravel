@@ -10,6 +10,7 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ProfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -188,5 +189,12 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         Route::get('/penjualan_self/', [PenjualanController::class, 'indexSelf']);
         Route::get('/penjualan/{id}', [PenjualanController::class, 'show']);
         Route::get('/penjualan/{id}/show_ajax', [PenjualanController::class, 'show_ajax']);
+    });
+    Route::controller(ProfilController::class)->group(function(){
+        Route::get('profil', 'index');
+        Route::get('/profil/import', 'import');
+        Route::get('image-upload', 'index');
+        Route::post('image-upload', 'store')->name('profil.store');
+    
     });
 });
