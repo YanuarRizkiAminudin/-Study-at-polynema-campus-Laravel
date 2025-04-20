@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\KategoriModel;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
@@ -264,28 +265,85 @@ class KategoriController extends Controller
 
         return view('kategori.confirm_ajax', ['kategori' => $kategori]);
     }
+
     public function delete_ajax(Request $request, $id)
+{
+    // cek apakah request dari ajax
+    if ($request->ajax() || $request->wantsJson()) {
+        $kategori = KategoriModel::find($id);
+        if ($kategori) {
+            $kategori->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil dihapus'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
+    return redirect('/');
+}
+
+public function import()
     {
-        // cek apakah request dari ajax
+        return view('kategori.import');
+    }
+
+    public function import_ajax(Request $request)
+    {
         if ($request->ajax() || $request->wantsJson()) {
-            $level = KategoriModel::find($id);
-            if ($level) {
-                try {
-                    $level->delete();
-                    return response()->json([
-                        'status' => true,
-                        'message' => 'Data berhasil dihapus'
-                    ]);
-                } catch (\Illuminate\Database\QueryException $e) {
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'Data tidak bisa dihapus'
-                    ]);
+            $rules = [
+                // validasi file harus xls atau xlsx, max 1MB 
+                'file_kategori' => ['required', 'mimes:xlsx', 'max:1024']
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors()
+                ]);
+            }
+
+            $file = $request->file('file_kategori');  // ambil file dari request 
+
+            $reader = IOFactory::createReader('Xlsx');  // load reader file excel 
+            $reader->setReadDataOnly(true);             // hanya membaca data 
+            $spreadsheet = $reader->load($file->getRealPath()); // load file excel 
+            $sheet = $spreadsheet->getActiveSheet();    // ambil sheet yang aktif 
+
+            $data = $sheet->toArray(null, false, true, true);   // ambil data excel 
+
+            $insert = [];
+            if (count($data) > 1) { // jika data lebih dari 1 baris 
+                foreach ($data as $baris => $value) {
+                    if ($baris > 1) { // baris ke 1 adalah header, maka lewati 
+                        $insert[] = [
+                            'kategori_id' => $value['A'],
+                            'kategori_kode' => $value['B'],
+                            'kategori_nama' => $value['C'],
+                            'created_at' => now(),
+                        ];
+                    }
                 }
+
+                if (count($insert) > 0) {
+                    // insert data ke database, jika data sudah ada, maka diabaikan 
+                    KategoriModel::insertOrIgnore($insert);
+                }
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil diimport'
+                ]);
             } else {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Data tidak ditemukan'
+                    'message' => 'Tidak ada data yang diimport'
                 ]);
             }
         }
