@@ -56,19 +56,19 @@
       
       <li class="nav-header">Data Transaksi</li>
       <li class="nav-item">
-        <a href="{{ url('/kategori') }}" class="nav-link {{ ($activeMenu == 'kategori') ? 'active' : '' }}">
+        <a href="{{ url('/stok') }}" class="nav-link {{ ($activeMenu == 'stok') ? 'active' : '' }}">
           <i class="nav-icon far fa-bookmark"></i>
           <p>Stok Barang</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/barang') }}" class="nav-link {{ ($activeMenu == 'barang') ? 'active' : '' }}">
+        <a href="{{ url('/penjualan') }}" class="nav-link {{ ($activeMenu == 'penjualan') ? 'active' : '' }}">
           <i class="nav-icon far fa-list-alt"></i>
           <p>Transaksi Penjualan</p>
         </a>
         </li>
       <li class="nav-item">
-        <a href="{{ url('/supplier') }}" class="nav-link {{ ($activeMenu == 'supplier') ? 'active' : '' }}">
+        <a href="{{ url('/logout') }}" class="nav-link {{ ($activeMenu == 'logout') ? 'active' : '' }}">
           <i class="nav-icon fas fa-cubes"></i>
           <p>Logout</p>
         </a>
