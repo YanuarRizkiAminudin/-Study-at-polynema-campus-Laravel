@@ -41,3 +41,8 @@ Route::get('user/{user}', [UserController::class, 'show']);
 Route::put('user/{user}', [UserController::class, 'update']);
 Route::delete('user/{user}', [UserController::class, 'destroy']);
 
+Route::get('kategori', [KategoriController::class, 'index']);
+Route::post('kategori', [KategoriController::class, 'store']);
+Route::get('kategori/{kategori}', [KategoriController::class, 'show']);
+Route::put('kategori/{kategori}', [KategoriController::class, 'update']);
+Route::delete('kategori/{kategori}', [KategoriController::class, 'destroy']);
