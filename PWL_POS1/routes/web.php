@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\RegisterController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
@@ -22,14 +24,17 @@ use App\Http\Controllers\ProfilController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//js10
+
 
 Route::pattern('id', '[0-9]+'); // artinya ketika ada parameter {id}, maka harus berupa angka 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postlogin']);
 Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::get('register', [AuthController::class, 'register'])->name('register');
-Route::post('register', [AuthController::class, 'postregister']);
+//Route::get('register', [AuthController::class, 'register'])->name('register');
+// Route::post('register', [AuthController::class, 'postregister']);
+Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
 
 Route::middleware(['auth'])->group(function () { // artinya semua route di dalam group ini harus login dulu 
     Route::get('/', [WelcomeController::class, 'index']);
