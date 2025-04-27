@@ -20,6 +20,8 @@ use App\Http\Controllers\Api\LogoutController;
 */
 
 Route::post('/register', RegisterController::class)->name('register');
+Route::post('/register1', RegisterController::class)->name('register1');
+Route::post('/barangRegister', BarangController::class)->name('barangRegister');
 
 Route::post('/login', LoginController::class)->name('login');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
