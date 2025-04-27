@@ -6,7 +6,7 @@
             <h3 class="card-title">{{ $page->title }}</h3>
             @if (!isset($self))
                 <div class="card-tools">
-                    <a class="btn btn-sm btn-primary" href="{{ url('penjualan/create') }}">Tambah</a>
+                    <!-- <a class="btn btn-sm btn-primary" href="{{ url('penjualan/create') }}">Tambah</a> -->
                     <button onclick="modalAction('{{ url('/penjualan/create_ajax') }}')" class="btn btn-sm btn-success">
                         Tambah Ajax
                     </button>
